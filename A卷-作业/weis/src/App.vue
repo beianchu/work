@@ -1,32 +1,60 @@
 <template>
   <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </nav>
-    <router-view/>
+    <el-container>
+      <el-header>
+        <!-- 头部组件 -->
+        <head1 class="top-box"> </head1>
+      </el-header>
+      <el-container>
+        <el-aside>
+          <!-- 的左侧导航栏 -->
+          <navLeft></navLeft>
+        </el-aside>
+        <el-main>
+          <!-- 公共搜索部分 -->
+          <titTxt></titTxt>
+          <!-- router-view 接受路由坑 -->
+          <router-view />
+        </el-main>
+      </el-container>
+    </el-container>
   </div>
 </template>
 
+<script>
+// 要引入组件
+import head1 from "./components/Header.vue";
+import navLeft from "./components/Nav.vue";
+import titTxt from "./components/Search.vue";
+export default {
+  components: { head1, navLeft, titTxt },
+};
+</script>
+
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+* {
+  margin: 0;
+  padding: 0;
+}
+.top-box {
+  width: 100%;
+  height: 100%;
+}
+.el-header,
+.el-footer {
+  background-color: #b3c0d1;
+  color: #333;
 }
 
-nav {
-  padding: 30px;
+.el-aside {
+  background-color: #d3dce6;
+  color: #333;
+  height: 100vh !important;
+}
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+.el-main {
+  background-color: #e9eef3;
+  color: #333;
+  padding: 20px 0 !important;
 }
 </style>

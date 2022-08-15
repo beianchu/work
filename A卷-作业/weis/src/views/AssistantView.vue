@@ -1,7 +1,7 @@
 
 <template>
 <div>
-  hollow
+  <h4>助教管理</h4>
 </div>
 </template>
 

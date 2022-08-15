@@ -1,6 +1,8 @@
 
 <template>
-  <div>about</div>
+  <div>
+    <h4>教师管理</h4>
+  </div>
 </template>
 
 <script>
