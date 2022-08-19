@@ -11,7 +11,7 @@
       tooltip-effect="dark"
       style="width: 100%"
     >
-      <el-table-column type="selection" width="55"> </el-table-column>
+      <el-table-column type="selection" width="55" class="ok"> </el-table-column>
       <el-table-column label="学生名称">
         <template slot-scope="scope">
           <div class="pic">
@@ -146,6 +146,10 @@ export default {
 };
 </script>
 <style scoped lang='scss'>
+.ok{
+  display: flex;
+  justify-content: center;
+}
 .pic {
   display: flex;
   align-items: center;
@@ -179,6 +183,9 @@ img {
   width: 20%;
 }
 .table{
+  // display: flex;
+  // justify-content: center;
+  // text-align: center;
   margin: 10px;
 }
 </style>

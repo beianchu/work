@@ -1,6 +1,7 @@
 
 <template>
   <div>
+  
     <el-row>
       <el-col :span="6">
         <el-button type="primary" icon="el-icon-delete" @click="delAll"
@@ -18,14 +19,14 @@
           </el-option> </el-select
       ></el-col>
       <el-col :span="10">
-        <el-input placeholder="请输入内容" clearable v-model="searchVal" @input="search"> </el-input
+        <el-input placeholder="请输入内容" clearable v-model="searchVal" @input="search(searchVal)"> </el-input
       ></el-col>
     </el-row>
 
     <el-table
       ref="multipleTable"
       :data="
-        tableData.slice((currentPage - 1) * pageSize, currentPage * pageSize)
+        $store.state.tableData.slice((currentPage - 1) * pageSize, currentPage * pageSize)
       "
       tooltip-effect="dark"
       style="width: 100%"
@@ -68,7 +69,7 @@
           <el-button
             size="mini"
             type="danger"
-            @click="handleDelete(scope.$index, scope.row)"
+            @click="handleDelete(scope.row)"
             >删除</el-button
           >
         </template>
@@ -102,6 +103,8 @@
 
 <script>
 import axios from "axios";
+// 引入辅助函数
+import {mapState,mapMutations,mapGetters,mapActions} from "vuex"
 export default {
   name: "",
   components: {},
@@ -151,27 +154,29 @@ export default {
   },
   mounted() {},
   methods: {
+    // 辅助函数 语法糖
+    ...mapMutations(['changeSel','handleSelectionChange','delAll','search','handleDelete']),
     // 搜索地址
-      changeSel(val){
-          console.log(val);
-          this.tableData=this.catchData.filter(item =>item.address.includes(val))
-      },
+      // changeSel(val){
+      //     console.log(val);
+      //   $store.state.tableData=$store.state.catchData.filter(item =>item.address.includes(val))
+      // },
     //   获取数据
     getTableList() {
       axios.get("/books.json").then((res) => {
-        this.tableData = res.data;
-        this.catchData=res.data
+        this.$store.state.tableData = res.data;
+     this.$store.state.catchData=res.data
       });
     },
     // 选中删除
-    handleSelectionChange(val) {
-      this.multipleSelection = val.map((item) => item.id);
-    },
-    delAll() {
-      this.tableData = this.tableData.filter(
-        (item) => !this.multipleSelection.includes(item.id)
-      );
-    },
+    // handleSelectionChange(val) {
+    //   this.multipleSelection = val.map((item) => item.id);
+    // },
+    // delAll() {
+    //   $store.state.tableData = $store.state.tableData.filter(
+    //     (item) => !this.multipleSelection.includes(item.id)
+    //   );
+    // },
     // 编辑回显
     handleEdit(index, row) {
       this.dialogFormVisible = true;
@@ -181,12 +186,12 @@ export default {
       console.log(this.form.id,row.id);
     },
     // 搜索用户名
-    search(){
-        this.tableData=this.catchData.filter(item =>item.name.includes(this.searchVal))
-    },
+    // search(){
+    //     $store.state.tableData=$store.state.catchData.filter(item =>item.name.includes(this.searchVal))
+    // },
     // 编辑成功
     editMsg() {
-      const cItem=this.tableData.find(item =>item.id==this.form.id)
+      const cItem=this.$store.state.tableData.find(item =>item.id==this.form.id)
       if(cItem){
         cItem.name=this.form.name
         cItem.address=this.form.address
@@ -194,26 +199,26 @@ export default {
       }
     },
     // 单个删除
-    handleDelete(index, row) {
-      this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
-      })
-        .then(() => {
-         this.tableData=this.tableData.filter(item =>item.name!=row.name)
-          this.$message({
-            type: "success",
-            message: "删除成功!",
-          });
-        })
-        .catch(() => {
-          this.$message({
-            type: "info",
-            message: "已取消删除",
-          });
-        });
-    },
+    // handleDelete(index, row) {
+    //   this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
+    //     confirmButtonText: "确定",
+    //     cancelButtonText: "取消",
+    //     type: "warning",
+    //   })
+    //     .then(() => {
+    //     $store.state.tableData=$store.state.tableData.filter(item =>item.name!=row.name)
+    //       this.$message({
+    //         type: "success",
+    //         message: "删除成功!",
+    //       });
+    //     })
+    //     .catch(() => {
+    //       this.$message({
+    //         type: "info",
+    //         message: "已取消删除",
+    //       });
+    //     });
+    // },
   },
 };
 </script>

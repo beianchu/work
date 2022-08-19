@@ -49,7 +49,7 @@ export default {
   box-sizing: border-box;
   padding: 0 70px;
   width: 100%;
-  height: 70px;
+  height: 50px;
   background: blue;
   display: flex;
   align-items: center;

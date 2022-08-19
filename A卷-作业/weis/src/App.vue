@@ -44,6 +44,7 @@ export default {
 .el-footer {
   background-color: #b3c0d1;
   color: #333;
+  background: blue;
 }
 
 .el-aside {
