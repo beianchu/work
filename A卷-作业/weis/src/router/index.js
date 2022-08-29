@@ -4,16 +4,25 @@ import HomeView from '../views/HomeView.vue'
 
 Vue.use(VueRouter)
 
-const routes = [{
+const routes = [
+  {
     path: '/',
-    name: 'home',
-    component: HomeView,
+    redirect: 'students',
+   
+  },
+  {
+    path: "/comm",
+    name: "comm",
+    component: () => import('../components/Commom.vue/commom.vue'),
+
   },
   {
     path: "/students",
     name: "students",
     component: () => import('../views/StudentsView.vue'),
-    meta:{title:"学生管理"}
+    meta: {
+      title: "学生管理"
+    }
   },
   {
     path: "/teacher",
@@ -39,7 +48,7 @@ const routes = [{
       title: "助教管理"
     }
   }
-  
+
 ]
 
 const router = new VueRouter({

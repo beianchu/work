@@ -2,7 +2,7 @@
 <template>
 <div>
    <div id="full-screen">
-      <h2 @click="screenFull" >
+      <h2>
           <i
             class="el-icon-s-fold"
            

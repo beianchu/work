@@ -26,7 +26,7 @@
     <el-table
       ref="multipleTable"
       :data="
-        $store.state.tableData.slice((currentPage - 1) * pageSize, currentPage * pageSize)
+        $store.state.tableData
       "
       tooltip-effect="dark"
       style="width: 100%"
@@ -102,6 +102,7 @@
 </template>
 
 <script>
+import Mock from "mockjs"
 import axios from "axios";
 // 引入辅助函数
 import {mapState,mapMutations,mapGetters,mapActions} from "vuex"
@@ -150,6 +151,11 @@ export default {
     };
   },
   created() {
+    
+    //请求mockjs‘数据
+    axios.get("/getServeData").then(res=>{
+      console.log(res)
+    })
     this.getTableList();
   },
   mounted() {},
@@ -163,9 +169,9 @@ export default {
       // },
     //   获取数据
     getTableList() {
-      axios.get("/books.json").then((res) => {
-        this.$store.state.tableData = res.data;
-     this.$store.state.catchData=res.data
+      axios.get("/getServeData").then((res) => {
+        this.$store.state.tableData = res.data.list;
+     this.$store.state.catchData=res.data.list
       });
     },
     // 选中删除

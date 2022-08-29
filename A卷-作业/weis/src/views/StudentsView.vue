@@ -1,18 +1,21 @@
-
+// 表格和分页
 <template>
   <div>
- 
     <el-table
-    class="table"
+      class="table"
+      header-algin="center"
       border
       stripe
       ref="multipleTable"
-      :data="$store.state.tableData.slice((page - 1) * pageSize, page * pageSize)"
+      :data="
+        $store.state.tableData.slice((page - 1) * pageSize, page * pageSize)
+      "
       tooltip-effect="dark"
       style="width: 100%"
     >
-      <el-table-column type="selection" width="55" class="ok"> </el-table-column>
-      <el-table-column label="学生名称">
+      <el-table-column type="selection" width="55" class="ok" align="center">
+      </el-table-column>
+      <el-table-column label="学生名称" align="center">
         <template slot-scope="scope">
           <div class="pic">
             <img :src="scope.row.avatar" alt="" />
@@ -20,22 +23,23 @@
           </div>
         </template>
       </el-table-column>
-      <el-table-column prop="mobile" label="手机号"> </el-table-column>
-      <el-table-column label="状态">
+      <el-table-column prop="mobile" label="手机号" align="center">
+      </el-table-column>
+      <el-table-column label="状态" align="center">
         <template slot-scope="scope">
           <span v-if="scope.row.status == 0">禁用</span>
           <span v-else>启用</span>
         </template>
       </el-table-column>
-      <el-table-column prop="created_at" label="创建时间">
-        <template slot-scope="scope">
-          {{scope.row.created_at|time}}
-          </template> 
+      <el-table-column prop="created_at" label="创建时间" align="center">
+        <template slot-scope="scope" align="center">
+          {{ scope.row.created_at | time }}
+        </template>
       </el-table-column>
-      <el-table-column prop="name" label="操作">
+      <el-table-column prop="name" label="操作" align="center">
         <template slot-scope="scope">
           <el-button type="text" size="mini">详情</el-button>
-          <el-button type="text" size="mini">编辑</el-button>
+          <el-button type="text" size="mini">编辑—</el-button>
           <el-button type="text" size="mini">禁用</el-button>
           <el-button type="text" size="mini">删除</el-button>
           <el-button type="text" size="mini">重置密码</el-button>
@@ -89,18 +93,18 @@ export default {
     };
   },
   created() {
-    axios.get("/list.json").then((res) => {
+    axios.get("/list").then((res) => {
       console.log(res);
-      this.$store.state.tableData = res.data;
-      this.$store.state.catchList = res.data;
+      this.$store.state.tableData = res.data.list;
+      this.$store.state.catchList = res.data.list;
     });
   },
   mounted() {},
- filters: {
-   time(value) {
-     return new Date(parseInt(value)*1000).toLocaleString()
-   }
- },
+  filters: {
+    time(value) {
+      return new Date(parseInt(value) * 1000).toLocaleString();
+    },
+  },
   methods: {
     //   启用禁用状态选择
     changeSel(e) {
@@ -116,9 +120,11 @@ export default {
     },
     // 搜索手机号
     searchMobiel() {
-      this.tableData = this.catchList.filter((item) =>
-        item.mobile.includes(this.searchTel)
-      );
+      fn(this.searchTel);
+      
+    },
+    fn(a) {
+      this.tableData = this.catchList.filter((item) => item.mobile.includes(a));
     },
     // 重置
     close() {
@@ -145,8 +151,8 @@ export default {
   },
 };
 </script>
-<style scoped lang='scss'>
-.ok{
+<style scoped lang="scss">
+.ok {
   display: flex;
   justify-content: center;
 }
@@ -182,7 +188,7 @@ h3 {
 img {
   width: 20%;
 }
-.table{
+.table {
   // display: flex;
   // justify-content: center;
   // text-align: center;

@@ -1,4 +1,4 @@
-
+// 搜索组件
 <template>
   <div>
     <h4>{{ $route.meta.title }}</h4>

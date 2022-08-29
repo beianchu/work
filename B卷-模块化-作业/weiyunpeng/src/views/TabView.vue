@@ -114,9 +114,9 @@ export default {
     // },
     // 请求数据
     getTabList(){
-      axios.get('/text.json').then(res =>{
+      axios.get('/getlist').then(res =>{
         console.log(res);
-        this.$store.state.moduleA.tablist=res.data
+        this.$store.state.moduleA.tablist=res.data.list
       })
     },
     // changeTab(val){

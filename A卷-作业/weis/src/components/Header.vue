@@ -1,4 +1,4 @@
-
+// 头部组件
 <template>
   <div>
     <div class="box-top">
@@ -50,7 +50,7 @@ export default {
   padding: 0 70px;
   width: 100%;
   height: 50px;
-  background: blue;
+  background: rgb(12, 12, 235);
   display: flex;
   align-items: center;
   justify-content: flex-start;
