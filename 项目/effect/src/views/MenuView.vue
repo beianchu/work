@@ -10,26 +10,38 @@
     </div>
     <!-- 以上是搜索 -->
     <div class="table-box">
-      <el-table :data="tableData" border style="width: 100%" stripe>
-        <el-table-column type="index" label="菜单名称" width="180" align="center"> </el-table-column>
-        <el-table-column prop="date" label="菜单路径" width="180" align="center"> </el-table-column>
-        <el-table-column prop="name" label="排序" align="center"> </el-table-column>
-        <el-table-column prop="name" label="菜单图标" align="center"> </el-table-column>
-        <el-table-column prop="name" label="菜单类型" align="center"> </el-table-column>
-        <el-table-column prop="name" label="操作" align="center">
-          <template slot-scope="scope">
+      <div class="middle">
+                   
+        <!-- 树形表格 -->
+                   
+        <el-table
+          :data="tableData2"
+          style="width: 100%; margin-bottom: 20px"
+          row-key="id"
+          border
+          default-expand-all
+          :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
+        >
+                          <el-table-column prop="date" label="菜单名称" sortable width="180"> </el-table-column>        
+                  <el-table-column prop="name" label="菜单路径" sortable width="180"> </el-table-column>                
+          <el-table-column prop="address" label="排序"> </el-table-column>            
+          <el-table-column prop="address" label="菜单图标"> </el-table-column>            
+          <el-table-column prop="address" label="菜单类型"> </el-table-column>            
+          <el-table-column prop="address" label="操作">
             <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
             <el-button size="mini" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
-          </template>
-        </el-table-column>
-      </el-table>
+          </el-table-column>
+                     
+        </el-table>
+               
+      </div>
     </div>
     <!-- 以上是表格 -->
     <!-- 以下是分页 -->
     <div class="box-fenye">
       <pages></pages>
     </div>
-		<!-- 菜单弹框 -->
+    <!-- 菜单弹框 -->
     <menupopup></menupopup>
   </div>
 </template>
@@ -43,6 +55,48 @@ export default {
   components: { serchBtn, pages, menupopup },
   data() {
     return {
+      tableData2: [
+        {
+          id: 3,
+          date: '2016-05-01',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1519 弄',
+          children: [
+            {
+              id: 31,
+              date: '2016-05-01',
+              name: '王小虎',
+              address: '上海市普陀区金沙江路 1519 弄'
+            },
+            {
+              id: 32,
+              date: '2016-05-01',
+              name: '王小虎',
+              address: '上海市普陀区金沙江路 1519 弄'
+            }
+          ]
+        },
+        {
+          id: 3,
+          date: '2016-05-01',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1519 弄',
+          children: [
+            {
+              id: 31,
+              date: '2016-05-01',
+              name: '王小虎',
+              address: '上海市普陀区金沙江路 1519 弄'
+            },
+            {
+              id: 32,
+              date: '2016-05-01',
+              name: '王小虎',
+              address: '上海市普陀区金沙江路 1519 弄'
+            }
+          ]
+        }
+      ],
       tableData: [
         {
           date: '2016-05-02',
