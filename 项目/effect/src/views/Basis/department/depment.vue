@@ -1,40 +1,21 @@
-<!-- 菜单弹框 -->
+<!-- depment 部门弹窗 -->
 <template>
   <div>
-    <el-dialog title="新增菜单" :visible.sync="$store.state.MenupopupFormVisible">
+    <el-dialog :title="isFlag ? '新增部门' : '编辑部门'" :visible.sync="flag" @close="closePop">
       <!-- 表单 -->
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-        <el-form-item label="菜单类型" prop="resource">
-          <el-radio-group v-model="ruleForm.resource">
-            <el-radio label="菜单" icon="el-icon-check" circle type="success">
-              <el-button type="success" icon="el-icon-check" circle v-if="ruleForm.resource == '菜单'"></el-button>
-            </el-radio>
-            <el-radio label="目录" icon="el-icon-check" circle>
-              <el-button type="success" icon="el-icon-check" circle v-if="ruleForm.resource == '目录'"></el-button>
-            </el-radio>
-          </el-radio-group>
-        </el-form-item>
-        <el-form-item label="菜单名称" prop="name">
+        <el-form-item label="部门名称" prop="name">
           <el-input v-model="ruleForm.name" style="width: 60%"></el-input>
         </el-form-item>
-        <el-form-item label="菜单路径" prop="name">
-          <el-input v-model="ruleForm.name" style="width: 60%"></el-input>
-        </el-form-item>
-        <el-form-item label="菜单图标" prop="name">
-          <el-input v-model="ruleForm.name" style="width: 60%"></el-input>
-        </el-form-item>
-        <el-form-item label="上级菜单" prop="listData">
+        <el-form-item label="部门层级" prop="listData">
           <el-tree :data="ruleForm.listData" :props="defaultProps" @node-click="handleNodeClick"></el-tree>
-        </el-form-item>
-        <el-form-item label="排序" prop="name">
-          <el-input v-model="ruleForm.name" style="width: 60%"></el-input>
         </el-form-item>
         <el-form-item label="备注" prop="desc">
           <el-input type="textarea" v-model="ruleForm.desc" style="width: 60%"></el-input>
         </el-form-item>
         <el-form-item class="btn-box">
           <el-button class="submit" @click="submitForm('ruleForm')">新增</el-button>
-          <el-button @click="resetForm('ruleForm')">重置</el-button>
+          <el-button @click="resetForm('ruleForm')">取消</el-button>
         </el-form-item>
       </el-form>
     </el-dialog>
@@ -47,8 +28,9 @@ export default {
   components: {},
   data() {
     return {
+      flag: false,
+      isFlag: null,
       ruleForm: {
-        resource: '',
         desc: '',
         name: '',
         listData: [
@@ -116,7 +98,7 @@ export default {
       },
       rules: {
         name: [
-          { required: true, message: '请输入菜单名称', trigger: 'blur' },
+          { required: true, message: '请输入岗位名称', trigger: 'blur' },
           { min: 3, max: 36, message: '长度在 3 到 36 个字符', trigger: 'blur' }
         ]
       }
@@ -124,20 +106,36 @@ export default {
   },
   created() {},
   mounted() {},
+  /**监听付传过来的状态 */
+
   methods: {
+    // 点击添加数据子组件的状态
+    init() {
+      this.isFlag = true
+      this.flag = true
+    },
+    // 点击数据回显
+    backList(row) {
+      this.isFlag = false
+      this.flag = true
+      this.ruleForm = row
+    },
+    // 点击X
+    closePop() {
+      this.flag = false
+      this.$emit('ok')
+    },
     // 树形控件
     handleNodeClick(data) {
       console.log(data)
     },
-    // 点击接受参数
-    handleNodeClick(data) {
-      console.log(data)
-    },
+
     // 点击确定提交数据
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.$store.state.jobsFormVisible = false
+          this.flag = false
+          this.$emit('ok')
           alert('submit!')
         } else {
           console.log('error submit!!')

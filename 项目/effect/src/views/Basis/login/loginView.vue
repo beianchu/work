@@ -14,7 +14,7 @@
             <el-input v-model="ruleForm.pwd" placeholder="请输入密码">
               <i slot="prefix" class="el-icon-lock"></i>
             </el-input>
-            <p class="pwd-to" @click="$store.state.dialogFormVisible = true">忘记密码?</p> </el-form-item
+            <p class="pwd-to" @click="dialogFormVisible = true">忘记密码?</p> </el-form-item
           ><br />
 
           <el-form-item prop="verify">
@@ -33,7 +33,7 @@
       </div>
       <!-- 以上是登陆弹框 -->
       <!-- 忘记密码弹框 -->
-      <changPwd></changPwd>
+      <changPwd :data="dialogFormVisible" @loginClick="noneLogin"></changPwd>
     </div>
     <!-- 以上是登陆页面 -->
   </div>
@@ -41,7 +41,7 @@
 
 <script>
 import axios from 'axios'
-import changPwd from '../components/ChnagePowarssd.vue'
+import changPwd from '../../../components/forgetPwd/ChnagePowarssd.vue'
 import { createNamespacedHelpers } from 'vuex'
 const { mapState, mapGetters, mapMutations, mapActions } = createNamespacedHelpers('loginModules')
 export default {
@@ -49,17 +49,16 @@ export default {
   components: { changPwd },
   data() {
     return {
+			/**父亲的状态 */
+			dialogFormVisible:false,
+      /**登录表单数据 */
       ruleForm: {
-        name: '',
-        pwd: '',
-        verify: ''
+        name: '', //用户名
+        pwd: '', //密码
+        verify: '' //验证码
       },
 
-      forgetForm: {
-        name: '',
-        pwd: '',
-        pwd2: ''
-      },
+      /**正则效验 */
       rules: {
         name: [
           { required: true, message: '请输入用户名称', trigger: 'blur' },
@@ -76,14 +75,14 @@ export default {
       }
     }
   },
-  created() {
-    // axios.post('/effect/home/loginsearch').then((res) => {
-    //   console.log(res)
-    // })
-  },
+  created() {},
   mounted() {},
   methods: {
-    // 点击确定登录
+		// 子传父的接受的方法
+		noneLogin(){
+			this.dialogFormVisible=false
+		},
+    /**点击确定登录 */
     submitForm(formName) {
       this.$router.push('/Once')
       this.$refs[formName].validate((valid) => {
@@ -105,7 +104,7 @@ export default {
 .box-img {
   width: 100%;
   height: 100vh;
-  background: url('../assets/login.png');
+  background: url('../../../assets/login.png');
   background-size: 100% 100%;
 
   position: relative;

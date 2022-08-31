@@ -3,10 +3,16 @@
   <div>
     <div class="jobs-serach">
       <p>部门名称</p>
-      <serchBtn></serchBtn>
-      <p class="add-jobs" @click="$store.state.depmentFormVisible = true">
-        <i class="el-icon-circle-plus-outline"></i> 新增部门
-      </p>
+      &nbsp;&nbsp;&nbsp;
+      <div class="search-box">
+        <el-input v-model="valSearch" placeholder="请输入姓名" size="small" style="width: 200px"></el-input>
+        &nbsp;&nbsp;&nbsp;
+
+        <el-button class="el-icon-search">查询</el-button>
+        <el-button class="el-icon-refresh-right">重置</el-button>
+      </div>
+      &nbsp;&nbsp;&nbsp;
+      <p class="add-jobs" @click="add()"><i class="el-icon-circle-plus-outline"></i> 新增部门</p>
     </div>
     <div class="table-box">
       <el-table :data="tableData" border style="width: 100%" stripe>
@@ -21,21 +27,35 @@
       </el-table>
     </div>
     <!-- 分页组件 -->
-    <div class="fenye-page-jobs"><pages></pages></div>
+    <div class="fenye-page-jobs">
+      <div class="box-bottom">
+        <div class="fenye-box">
+          <span>总共20条</span> &nbsp;&nbsp; <el-button>上一页</el-button> &nbsp;&nbsp;2/5&nbsp;&nbsp;<el-button
+            >下一页</el-button
+          >
+        </div>
+      </div>
+    </div>
     <!-- 添加职位弹窗 -->
-    <depment></depment>
+    <depment v-if="depmentFormVisible" ref="depmentForm" @ok="depment"></depment>
   </div>
 </template>
 
 <script>
-import depment from '../components/depment.vue'
-import serchBtn from '../components/SearchBtn.vue'
-import pages from '../components/PagesView.vue'
+/**添加职位天窗 */
+import depment from './depment.vue'
+
+/**分页组件 */
+
 export default {
   name: '',
-  components: { serchBtn, pages, depment },
+  components: { depment },
   data() {
     return {
+      valSearch: '',
+      depmentFormVisible: false,
+
+      /**表格数据 */
       tableData: [
         {
           date: '2016-05-02',
@@ -53,11 +73,25 @@ export default {
   created() {},
   mounted() {},
   methods: {
-    // 点击编辑数据
+    add() {
+      this.depmentFormVisible = true
+      this.$nextTick(() => {
+        this.$refs.depmentForm.init()
+      })
+    },
+    /**子传过来的方法 */
+    depment() {
+      this.depmentFormVisible = false
+    },
+    /** 点击编辑数据*/
     handleEdit(index, row) {
+      this.depmentFormVisible = true
+      this.$nextTick(() => {
+        this.$refs.depmentForm.backList(row)
+      })
       console.log(index, row)
     },
-    // 点击删除页面
+    /** 点击删除页面*/
     handleDelete(index, row) {
       console.log(index, row)
     }

@@ -14,7 +14,7 @@ const routes = [{
 		// route level code-splitting
 		// this generates a separate chunk (about.[hash].js) for this route
 		// which is lazy-loaded when the route is visited.
-		component: () => import( /* webpackChunkName: "about" */ '../views/loginView.vue')
+		component: () => import( /* webpackChunkName: "about" */ '../views/Basis/login/loginView.vue')
 	},
 	{
 		path: '/Once',
@@ -22,7 +22,7 @@ const routes = [{
 		// route level code-splitting
 		// this generates a separate chunk (about.[hash].js) for this route
 		// which is lazy-loaded when the route is visited.
-		component: () => import( /* webpackChunkName: "about" */ '../views/OnceView.vue'),
+		component: () => import( /* webpackChunkName: "about" */ '../views/common/OnceView.vue'),
 		children: [
 			{
 				path: '/One',
@@ -30,7 +30,7 @@ const routes = [{
 				// route level code-splitting
 				// this generates a separate chunk (about.[hash].js) for this route
 				// which is lazy-loaded when the route is visited.
-				component: () => import( /* webpackChunkName: "about" */ '../views/OneView.vue')
+				component: () => import( /* webpackChunkName: "about" */ '../views/firstPage/OneView.vue')
 			},
 
 			{
@@ -39,7 +39,7 @@ const routes = [{
 				// route level code-splitting
 				// this generates a separate chunk (about.[hash].js) for this route
 				// which is lazy-loaded when the route is visited.
-				component: () => import( /* webpackChunkName: "about" */ '../views/LoginTxtView.vue')
+				component: () => import( /* webpackChunkName: "about" */ '../views/Basis/loginText/LoginTxtView.vue')
 			},
 			{
 				path: '/operation',
@@ -47,7 +47,7 @@ const routes = [{
 				// route level code-splitting
 				// this generates a separate chunk (about.[hash].js) for this route
 				// which is lazy-loaded when the route is visited.
-				component: () => import( /* webpackChunkName: "about" */ '../views/OperationVeiw.vue')
+				component: () => import( /* webpackChunkName: "about" */ '../views/Basis/operate/OperationVeiw.vue')
 			},
 			{
 				path: '/jobs',
@@ -55,7 +55,7 @@ const routes = [{
 				// route level code-splitting
 				// this generates a separate chunk (about.[hash].js) for this route
 				// which is lazy-loaded when the route is visited.
-				component: () => import( /* webpackChunkName: "about" */ '../views/JobsView.vue')
+				component: () => import( /* webpackChunkName: "about" */ '../views/Basis/management/JobsView.vue')
 			},
 			{
 				path: '/rank',
@@ -63,7 +63,7 @@ const routes = [{
 				// route level code-splitting
 				// this generates a separate chunk (about.[hash].js) for this route
 				// which is lazy-loaded when the route is visited.
-				component: () => import( /* webpackChunkName: "about" */ '../views/RankView.vue')
+				component: () => import( /* webpackChunkName: "about" */ '../views/Basis/Rank/RankView.vue')
 			},
 			{
 				path: '/department',
@@ -71,7 +71,7 @@ const routes = [{
 				// route level code-splitting
 				// this generates a separate chunk (about.[hash].js) for this route
 				// which is lazy-loaded when the route is visited.
-				component: () => import( /* webpackChunkName: "about" */ '../views/Department.vue')
+				component: () => import( /* webpackChunkName: "about" */ '../views/Basis/department/Department.vue')
 			},
 			{
 				path: '/menu',
@@ -79,7 +79,23 @@ const routes = [{
 				// route level code-splitting
 				// this generates a separate chunk (about.[hash].js) for this route
 				// which is lazy-loaded when the route is visited.
-				component: () => import( /* webpackChunkName: "about" */ '../views/MenuView.vue')
+				component: () => import( /* webpackChunkName: "about" */ '../views/Basis/menu/MenuView.vue')
+			},
+			{
+				path: '/users',
+				name: 'users',
+				// route level code-splitting
+				// this generates a separate chunk (about.[hash].js) for this route
+				// which is lazy-loaded when the route is visited.
+				component: () => import( /* webpackChunkName: "about" */ '../views/Basis/users/user-management.vue')
+			},
+			{
+				path: '/roles',
+				name: 'roles',
+				// route level code-splitting
+				// this generates a separate chunk (about.[hash].js) for this route
+				// which is lazy-loaded when the route is visited.
+				component: () => import( /* webpackChunkName: "about" */ '../views/Basis/roles/role-management.vue')
 			},
 
 		]

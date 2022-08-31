@@ -93,6 +93,7 @@ export default {
           }
         ]
       },
+		/**时间选择器 */
       value1: ''
     }
   },
@@ -137,7 +138,7 @@ export default {
       legend: {
         orient: 'vertical',
         left: 'right',
-				padding:50
+        padding: 50
       },
       series: [
         {
@@ -160,7 +161,7 @@ export default {
               left: 'left'
             }
           },
-					center:['25%','50%']
+          center: ['25%', '50%']
         }
       ]
     }

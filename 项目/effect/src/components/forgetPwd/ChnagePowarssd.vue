@@ -2,7 +2,7 @@
   <!-- 忘记密码弹框 -->
   <div>
     <div class="box-pwd">
-      <el-dialog title="修改密码" :visible.sync="$store.state.dialogFormVisible">
+      <el-dialog title="修改密码" :visible.sync="flag" @close="closePop">
         <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
           <el-form-item label="用户名" prop="account">
             <el-input v-model="ruleForm.account"></el-input>
@@ -26,6 +26,7 @@
 
 <script>
 export default {
+  props: ['data'],
   name: '',
   components: {},
   data() {
@@ -66,19 +67,32 @@ export default {
         checkPass: [{ validator: validatePass2, trigger: 'blur' }],
         account: [{ validator: checkAge, trigger: 'blur' }]
       },
-      dialogTableVisible: false
+      flag: false
     }
   },
   created() {},
   mounted() {},
+	// 监听父
+  watch: {
+    data: function (newVal) {
+      this.flag = newVal
+    }
+  },
   methods: {
+		// 点击x
+    closePop() {
+      this.flag = false
+      this.$emit('loginClick')
+    },
     // 点击确认修改密码
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
+          this.flag = false
+          this.$emit('loginClick')
           alert('submit')
 
-          this.$store.state.dialogFormVisible = false
+
         } else {
           console.log('error submit!!')
           return false

@@ -3,17 +3,21 @@
   <div>
     <div class="jobs-serach">
       <p>菜单名称</p>
-      <serchBtn></serchBtn>
-      <p class="add-jobs" @click="$store.state.MenupopupFormVisible = true">
-        <i class="el-icon-circle-plus-outline"></i> 新增菜单
-      </p>
+      &nbsp;&nbsp;
+      <div class="search-box">
+        <el-input v-model="valSearch" placeholder="请输入姓名" size="small" style="width: 200px"></el-input>
+        &nbsp;&nbsp;&nbsp;
+
+        <el-button class="el-icon-search">查询</el-button>
+        <el-button class="el-icon-refresh-right">重置</el-button>
+      </div>
+      <p class="add-jobs" @click="add"><i class="el-icon-circle-plus-outline"></i> 新增菜单</p>
     </div>
     <!-- 以上是搜索 -->
     <div class="table-box">
       <div class="middle">
-                   
         <!-- 树形表格 -->
-                   
+
         <el-table
           :data="tableData2"
           style="width: 100%; margin-bottom: 20px"
@@ -22,39 +26,47 @@
           default-expand-all
           :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
         >
-                          <el-table-column prop="date" label="菜单名称" sortable width="180"> </el-table-column>        
-                  <el-table-column prop="name" label="菜单路径" sortable width="180"> </el-table-column>                
-          <el-table-column prop="address" label="排序"> </el-table-column>            
-          <el-table-column prop="address" label="菜单图标"> </el-table-column>            
-          <el-table-column prop="address" label="菜单类型"> </el-table-column>            
+                          <el-table-column prop="date" label="菜单名称" sortable width="180"> </el-table-column>
+          <el-table-column prop="name" label="菜单路径" sortable width="180"> </el-table-column>
+          <el-table-column prop="address" label="排序"> </el-table-column>
+          <el-table-column prop="address" label="菜单图标"> </el-table-column>
+          <el-table-column prop="address" label="菜单类型"> </el-table-column>
           <el-table-column prop="address" label="操作">
-            <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-            <el-button size="mini" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+            <template slot-scope="scope">
+              <el-button size="mini" @click="handleEdit(scope.row)">编辑</el-button>
+              <el-button size="mini" @click="handleDelete(scope.row)">删除</el-button>
+            </template>
           </el-table-column>
-                     
         </el-table>
-               
       </div>
     </div>
     <!-- 以上是表格 -->
     <!-- 以下是分页 -->
     <div class="box-fenye">
-      <pages></pages>
+      <div class="box-bottom">
+        <div class="fenye-box">
+          <span>总共20条</span> &nbsp;&nbsp; <el-button>上一页</el-button> &nbsp;&nbsp;2/5&nbsp;&nbsp;<el-button
+            >下一页</el-button
+          >
+        </div>
+      </div>
     </div>
     <!-- 菜单弹框 -->
-    <menupopup></menupopup>
+    <menupopup v-if="MenupopupFormVisible" ref="MenupopupForm" @menuClick="noneMenu"></menupopup>
   </div>
 </template>
 
 <script>
-import menupopup from '../components/Menu.vue'
-import pages from '../components/PagesView.vue'
-import serchBtn from '../components/SearchBtn.vue'
+/**菜单弹出窗 */
+import menupopup from './Menu.vue'
+
 export default {
   name: '',
-  components: { serchBtn, pages, menupopup },
+  components: { menupopup },
   data() {
     return {
+      MenupopupFormVisible: false,
+      /**表格数据 */
       tableData2: [
         {
           id: 3,
@@ -96,29 +108,32 @@ export default {
             }
           ]
         }
-      ],
-      tableData: [
-        {
-          date: '2016-05-02',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        },
-        {
-          date: '2016-05-02',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }
       ]
     }
   },
   created() {},
   mounted() {},
   methods: {
-    // 点击编辑数据
-    handleEdit(index, row) {
-      console.log(index, row)
+    add() {
+      this.MenupopupFormVisible = true
+      this.$nextTick(() => {
+        this.$refs.MenupopupForm.init()
+      })
     },
-    // 点击删除页面
+    // 子传父的方法
+    noneMenu() {
+      this.MenupopupFormVisible = false
+    },
+    /** 点击编辑数据 */
+    handleEdit(row) {
+      console.log(row)
+      // console.log(index, row)
+      this.MenupopupFormVisible = true
+      this.$nextTick(() => {
+        this.$refs.MenupopupForm.backList(row)
+      })
+    },
+    /**点击删除页面 */
     handleDelete(index, row) {
       console.log(index, row)
     }

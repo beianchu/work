@@ -1,7 +1,7 @@
 <!-- rank 添加职级弹框！ -->
 <template>
   <div>
-    <el-dialog title="新增职级" :visible.sync="$store.state.addRankFormVisible">
+    <el-dialog :title="isFlag?'新增职级':'编辑职级'" :visible.sync="flag" @close="closePop">
       <!-- 表单 -->
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
         <el-form-item label="职级名称" prop="name">
@@ -9,7 +9,7 @@
         </el-form-item>
 
         <el-form-item label="备注" prop="desc">
-          <el-input type="textarea" v-model="ruleForm.desc" style="width: 60%;" placeholder="说明...."></el-input>
+          <el-input type="textarea" v-model="ruleForm.desc" style="width: 60%" placeholder="说明...."></el-input>
         </el-form-item>
         <el-form-item class="btn-box">
           <el-button class="submit" @click="submitForm('ruleForm')">新增</el-button>
@@ -22,10 +22,13 @@
 
 <script>
 export default {
+  props: ['data'],
   name: '',
   components: {},
   data() {
     return {
+			isFlag:null,
+      flag: false,
       ruleForm: {
         desc: '',
         name: ''
@@ -40,11 +43,31 @@ export default {
   },
   created() {},
   mounted() {},
+  // 监听父亲的状态
+
   methods: {
+    // 新增
+    addList() {
+			this.isFlag=true
+      this.flag = true
+    },
+    // 编辑回显
+    backList(row) {
+			this.isFlag=false
+      this.flag = true
+      this.ruleForm = row
+    },
+    // 点击x关闭
+    closePop() {
+      this.flag = false
+      this.$emit('rankClick')
+    },
+    // 确认添加
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.$store.state.addRankFormVisible = false
+          this.flag = false
+          this.$emit('rankClick')
           alert('submit!')
         } else {
           console.log('error submit!!')

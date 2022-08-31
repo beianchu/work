@@ -13,8 +13,8 @@ import {
 const http = axios.create({
 	// 请求公共路径
 	baseURL: '/',
-	timeout: 3000,
-	withCredentials: true,
+	timeout: 3000,//超出时间
+	withCredentials: true, 	//开启跨域
 	headers: {
 		'Content-type': 'application/json; charset=utf-8'
 	}

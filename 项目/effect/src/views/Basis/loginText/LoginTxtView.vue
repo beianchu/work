@@ -1,7 +1,15 @@
 <!-- 登录日志 -->
 <template>
   <div>
-    <searchVal></searchVal>
+    <div class="search-box">
+      <p>登录日志</p>
+      &nbsp;&nbsp;&nbsp;
+      <el-input v-model="valSearch" placeholder="请输入姓名" size="small" style="width: 200px"></el-input>
+      &nbsp;&nbsp;&nbsp;
+
+      <el-button class="el-icon-search">查询</el-button>
+      <el-button class="el-icon-refresh-right">重置</el-button>
+    </div>
     <!-- 以上是搜索组件 -->
     <!-- 以下是表格数据展示 -->
     <div class="table-box">
@@ -14,8 +22,8 @@
         <el-table-column prop="address" label="登陆时间" align="center"> </el-table-column>
       </el-table>
     </div>
-		<br>
-		<!-- 以下是分页 -->
+    <br />
+    <!-- 以下是分页 -->
     <div class="box-bottom">
       <div class="txt-box">
         <p>账号名称：点击跳转至用户详情，并且</p>
@@ -33,12 +41,15 @@
 </template>
 
 <script>
-import searchVal from '../components/SearchView.vue'
+/** 搜索组件*/
+
 export default {
   name: '',
-  components: { searchVal },
+  components: {},
   data() {
     return {
+      valSearch: '',
+      /**表格数据 */
       tableData: [
         {
           date: '2016-05-02',
@@ -69,10 +80,9 @@ export default {
 .el-table .success-row {
   background: #f0f9eb;
 }
-.box-bottom{
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-
+.box-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 </style>

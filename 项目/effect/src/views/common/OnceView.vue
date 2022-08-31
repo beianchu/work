@@ -10,7 +10,7 @@
         <el-header>
           <Myhead></Myhead>
         </el-header>
-        <hr style="background: #f2f2f2;border: 1px solid gainsboro;" />
+        <hr style="background: #f2f2f2; border: 1px solid gainsboro" />
         <!-- 身体部分 -->
         <el-main>
           <!-- 接收路由 -->
@@ -22,10 +22,13 @@
 </template>
 
 <script>
-import Myhead from '../components/HeaderView.vue'
-import leftNav from '../components/leftNav.vue'
+	/**引入头部组件 */
+
+import Myhead from '../../components/HeaderView.vue'
+/**左侧导航栏组件 */
+import leftNav from '../../components/leftNav.vue'
 export default {
-  name: '',
+
   components: { leftNav, Myhead },
   data() {
     return {}
@@ -36,7 +39,6 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-	
 .el-header {
   height: 60px;
   background-color: white;

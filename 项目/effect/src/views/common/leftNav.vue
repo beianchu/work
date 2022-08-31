@@ -25,12 +25,6 @@
               <i class="el-icon-setting" style="color: white"></i>
               <span>基础配置</span>
             </template>
-            <el-menu-item index="/users">
-              <span slot="title">用户管理</span>
-            </el-menu-item>
-            <el-menu-item index="/roles">
-              <span slot="title">角色管理</span>
-            </el-menu-item>
             <el-menu-item index="/menu">
               <span slot="title">菜单管理</span>
             </el-menu-item>
@@ -69,6 +63,7 @@
 </template>
 
 <script>
+	
 export default {
   name: '',
   components: {},

@@ -1,7 +1,13 @@
 <template>
   <!-- 操作日志 -->
   <div>
-    <serch></serch>
+    <div class="search-box">
+      <el-input v-model="valSearch" placeholder="请输入姓名" size="small" style="width: 200px"></el-input>
+      &nbsp;&nbsp;&nbsp;
+
+      <el-button class="el-icon-search">查询</el-button>
+      <el-button class="el-icon-refresh-right">重置</el-button>
+    </div>
     <div class="table-box">
       <el-table :data="tableData" border style="width: 100%" stripe>
         <el-table-column type="index" label="id" align="center"> </el-table-column>
@@ -26,12 +32,14 @@
 </template>
 
 <script>
-import serch from '../components/SearchView.vue'
+
 export default {
   name: '',
-  components: { serch },
+  components: {  },
   data() {
     return {
+			valSearch:'',
+      /**表格数据 */
       tableData: [
         {
           date: '2016-05-02',

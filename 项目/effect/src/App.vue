@@ -42,4 +42,13 @@ div {
 .el-icon-arrow-down:before {
   color: white !important;
 }
+.search-box{
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	height: 70px;
+p{
+	margin-right:10px ;
+}
+}
 </style>

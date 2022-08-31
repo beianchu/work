@@ -1,7 +1,7 @@
 <!-- 新增岗位弹窗 -->
 <template>
   <div>
-    <el-dialog title="新增岗位" :visible.sync="$store.state.jobsFormVisible">
+    <el-dialog title="新增岗位" :visible.sync="flag" @close="closePop">
       <!-- 表单 -->
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
         <el-form-item label="岗位名称" prop="name">
@@ -24,10 +24,14 @@
 
 <script>
 export default {
+ 
   name: '',
   components: {},
   data() {
     return {
+      isFlag: null,
+      /**子元素弹窗的状态 */
+      flag: false,
       ruleForm: {
         desc: '',
         name: '',
@@ -104,7 +108,25 @@ export default {
   },
   created() {},
   mounted() {},
+
   methods: {
+    // 点击新增
+    init() {
+      this.isFlag = true
+      this.flag = true
+    },
+    //点击回天
+    backList(row) {
+      this.isFlag = false
+      this.flag = true
+      this.ruleForm = row
+    },
+    // 点击x
+    closePop() {
+      this.flag = false
+      // 子传父
+      this.$emit('jobClick')
+    },
     // 点击树形控件参数
     handleNodeClick(data) {
       console.log(data)
@@ -113,7 +135,9 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.$store.state.jobsFormVisible=false
+          this.flag = false
+          // 子传父
+          this.$emit('jobClick')
           alert('submit!')
         } else {
           console.log('error submit!!')
