@@ -1,7 +1,7 @@
 <!-- depment 部门弹窗 -->
 <template>
   <div>
-    <el-dialog :title="isFlag ? '新增部门' : '编辑部门'" :visible.sync="flag" @close="closePop">
+    <el-dialog :title="isFlag?'新增部门':'编辑部门'" :visible.sync="flag" @close="closePop">
       <!-- 表单 -->
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
         <el-form-item label="部门名称" prop="name">
@@ -28,7 +28,7 @@ export default {
   components: {},
   data() {
     return {
-      flag: false,
+			flag:false,
       isFlag: null,
       ruleForm: {
         desc: '',
@@ -115,7 +115,7 @@ export default {
       this.flag = true
     },
     // 点击数据回显
-    backList(row) {
+    back(row) {
       this.isFlag = false
       this.flag = true
       this.ruleForm = row
